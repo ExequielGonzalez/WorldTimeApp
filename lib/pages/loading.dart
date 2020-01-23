@@ -20,11 +20,19 @@ class _LoadingState extends State<Loading> {
   *! Las funciones asincronas no detienen la ejecucion del programa
   */
   void getData() async {
-    Response response =
-        await get('https://jsonplaceholder.typicode.com/todos/1');
+    Response response = await get(
+        'http://worldtimeapi.org/api/timezone/America/Argentina/Buenos_Aires');
     Map datos = jsonDecode(response.body);
     print(datos);
-    print(datos['title']);
+    // print(datos['title']);
+
+    String data = datos['datetime'];
+    print(data);
+
+    DateTime now = DateTime.parse(data);
+    now = now.add(Duration(hours: int.parse(datos['abbreviation'])));
+    print(now);
+    // print(now.toLocal());
   }
 
   @override
