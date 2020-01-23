@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:http/http.dart';
-import 'dart:convert';
+import 'package:hora_mundial/services/world_time.dart';
 
 class Loading extends StatefulWidget {
   @override
@@ -8,37 +7,16 @@ class Loading extends StatefulWidget {
 }
 
 class _LoadingState extends State<Loading> {
-  //!funciones asincronas
-  /*
-  *! Las funciones asincronas no se ejecutan hasta que transcurre el tiempo
-  *! que se le pasa como primer parametro. Lo bueno es que si salgo de esa
-  *! ventana, aun asi el tiempo sigue transcurriendo.
+  String tiempo;
 
-  *! Se debe usar async y await para que funcionen.
-  *! async dice que es un funcion asincrona
-  *! await no ejecuta la funcion hasta que no transcurre el tiempo
-  *! Las funciones asincronas no detienen la ejecucion del programa
-  */
-  void getData() async {
-    Response response = await get(
-        'http://worldtimeapi.org/api/timezone/America/Argentina/Buenos_Aires');
-    Map datos = jsonDecode(response.body);
-    print(datos);
-    // print(datos['title']);
-
-    String data = datos['datetime'];
-    print(data);
-
-    DateTime now = DateTime.parse(data);
-    now = now.add(Duration(hours: int.parse(datos['abbreviation'])));
-    print(now);
-    // print(now.toLocal());
-  }
-
-  @override
-  void initState() {
-    super.initState();
-    getData();
+  Future<void> getWorldTime() async {
+    WorldTime prueba = WorldTime(
+        location: 'Argentina',
+        url: 'America/Argentina/Buenos_Aires',
+        flag: 'Argentina.png');
+    await prueba.getTime();
+    tiempo = prueba.time;
+    print(tiempo);
   }
 
   @override
@@ -46,5 +24,11 @@ class _LoadingState extends State<Loading> {
     return Scaffold(
       body: Text('loading screen'),
     );
+  }
+
+  @override
+  void initState() {
+    super.initState();
+    getWorldTime();
   }
 }
