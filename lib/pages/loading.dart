@@ -23,6 +23,7 @@ class _LoadingState extends State<Loading> {
       'location': prueba.location,
       'time': prueba.time,
       'flag': prueba.flag,
+      'isDay': prueba.isDay,
     });
   }
 
@@ -31,9 +32,9 @@ class _LoadingState extends State<Loading> {
     return Scaffold(
       backgroundColor: Colors.amber[100],
       body: Center(
-        child: SpinKitDoubleBounce(
+        child: SpinKitCubeGrid(
           color: Colors.redAccent,
-          size: 80.0,
+          size: 120.0,
         ),
       ),
     );

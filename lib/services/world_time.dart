@@ -7,6 +7,7 @@ class WorldTime {
   String location;
   String flag;
   String url;
+  bool isDay = false;
 
   WorldTime({this.location, this.url, this.flag});
 
@@ -35,6 +36,7 @@ class WorldTime {
 
       DateTime now = DateTime.parse(data);
       now = now.add(Duration(hours: int.parse(datos['abbreviation'])));
+      isDay = now.hour > 6 && now.hour < 20 ? true : false;
       time = DateFormat.Hm().format(now);
       // time = now.toString();
     } catch (error) {
