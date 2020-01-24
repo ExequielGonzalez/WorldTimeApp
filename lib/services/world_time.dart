@@ -33,9 +33,12 @@ class WorldTime {
 
       String data = datos['datetime'];
       // print(data);
+      String offset = datos['utc_offset'];
+      offset = offset.substring(0, 3);
 
       DateTime now = DateTime.parse(data);
-      now = now.add(Duration(hours: int.parse(datos['abbreviation'])));
+      now = now.add(Duration(hours: int.parse(offset)));
+
       isDay = now.hour > 6 && now.hour < 20 ? true : false;
       time = DateFormat.Hm().format(now);
       // time = now.toString();

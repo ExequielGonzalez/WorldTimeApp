@@ -10,20 +10,34 @@ class Loading extends StatefulWidget {
 class _LoadingState extends State<Loading> {
   String tiempo;
 
-  Future<void> getWorldTime() async {
-    WorldTime prueba = WorldTime(
-        location: 'Argentina',
-        url: 'America/Argentina/Buenos_Aires',
-        flag: 'Argentina.png');
-    await prueba.getTime();
-    tiempo = prueba.time;
+  // Future<void> getWorldTime() async {
+  //   WorldTime prueba = WorldTime(
+  //       location: 'Argentina',
+  //       url: 'America/Argentina/Buenos_Aires',
+  //       flag: 'Argentina.png');
+  //   await prueba.getTime();
+  //   tiempo = prueba.time;
+  //   // print(tiempo);
+
+  //   Navigator.pushReplacementNamed(context, '/home', arguments: {
+  //     'location': prueba.location,
+  //     'time': prueba.time,
+  //     'flag': prueba.flag,
+  //     'isDay': prueba.isDay,
+  //   });
+  // }
+
+  Future<void> getWorldTime({location, url, flag}) async {
+    WorldTime info = WorldTime(location: location, url: url, flag: flag);
+    await info.getTime();
+    tiempo = info.time;
     // print(tiempo);
 
     Navigator.pushReplacementNamed(context, '/home', arguments: {
-      'location': prueba.location,
-      'time': prueba.time,
-      'flag': prueba.flag,
-      'isDay': prueba.isDay,
+      'location': info.location,
+      'time': info.time,
+      'flag': info.flag,
+      'isDay': info.isDay,
     });
   }
 
@@ -43,6 +57,9 @@ class _LoadingState extends State<Loading> {
   @override
   void initState() {
     super.initState();
-    getWorldTime();
+    getWorldTime(
+        location: 'Argentina',
+        url: 'America/Argentina/Buenos_Aires',
+        flag: 'Argentina.png');
   }
 }
