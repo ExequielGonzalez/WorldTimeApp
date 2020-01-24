@@ -20,18 +20,25 @@ class WorldTime {
   *! await no ejecuta la funcion hasta que no transcurre el tiempo
   *! Las funciones asincronas no detienen la ejecucion del programa
   */
+
   void getTime() async {
-    Response response = await get("http://worldtimeapi.org/api/timezone/$url");
-    Map datos = jsonDecode(response.body);
-    // print(datos);
-    // print(datos['title']);
+    try {
+      Response response =
+          await get("http://worldtimeapi.org/api/timezone/$url");
+      Map datos = jsonDecode(response.body);
+      // print(datos);
+      // print(datos['title']);
 
-    String data = datos['datetime'];
-    // print(data);
+      String data = datos['datetime'];
+      // print(data);
 
-    DateTime now = DateTime.parse(data);
-    now = now.add(Duration(hours: int.parse(datos['abbreviation'])));
+      DateTime now = DateTime.parse(data);
+      now = now.add(Duration(hours: int.parse(datos['abbreviation'])));
 
-    time = now.toString();
+      time = now.toString();
+    } catch (error) {
+      print(error);
+      time = 'Se ha producido un error. No es posible obtener la hora actual';
+    }
   }
 }
