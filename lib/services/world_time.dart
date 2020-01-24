@@ -1,5 +1,6 @@
 import 'package:http/http.dart';
 import 'dart:convert';
+import 'package:intl/intl.dart';
 
 class WorldTime {
   String time;
@@ -34,8 +35,8 @@ class WorldTime {
 
       DateTime now = DateTime.parse(data);
       now = now.add(Duration(hours: int.parse(datos['abbreviation'])));
-
-      time = now.toString();
+      time = DateFormat.Hm().format(now);
+      // time = now.toString();
     } catch (error) {
       print(error);
       time = 'Se ha producido un error. No es posible obtener la hora actual';
