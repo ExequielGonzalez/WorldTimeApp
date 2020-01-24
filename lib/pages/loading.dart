@@ -16,7 +16,13 @@ class _LoadingState extends State<Loading> {
         flag: 'Argentina.png');
     await prueba.getTime();
     tiempo = prueba.time;
-    print(tiempo);
+    // print(tiempo);
+
+    Navigator.pushReplacementNamed(context, '/home', arguments: {
+      'location': prueba.location,
+      'time': prueba.time,
+      'flag': prueba.flag,
+    });
   }
 
   @override
